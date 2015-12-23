@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8150" systemVersion="15A204g" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8122"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -15,13 +16,46 @@
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash" translatesAutoresizingMaskIntoConstraints="NO" id="W2M-SI-5PI">
+                                <rect key="frame" x="221" y="238" width="158" height="124"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eN4-a3-vZY">
+                                <rect key="frame" x="200" y="415" width="200" height="35"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="即时沟通高效便捷">
+                                        <attributes>
+                                            <color key="NSColor" red="0.048035299490025503" green="0.073389342082728848" blue="0.94070512820512819" alpha="1" colorSpace="calibratedRGB"/>
+                                            <font key="NSFont" size="25" name="PingFangSC-Regular"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="justified" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="eN4-a3-vZY" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="3R1-PF-gmC"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="eN4-a3-vZY" secondAttribute="bottom" constant="150" id="4a4-hG-Hkl"/>
+                            <constraint firstItem="eN4-a3-vZY" firstAttribute="centerX" secondItem="W2M-SI-5PI" secondAttribute="centerX" id="8tp-Pq-dqZ"/>
+                            <constraint firstItem="W2M-SI-5PI" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="DPs-mD-kHW"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="eN4-a3-vZY" secondAttribute="bottom" constant="50" id="ffh-Lr-4GY"/>
+                            <constraint firstItem="W2M-SI-5PI" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="zDb-Lk-mue"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="ffh-Lr-4GY"/>
+                            </mask>
+                        </variation>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53" y="375"/>
+            <point key="canvasLocation" x="310" y="358"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="splash" width="158" height="124"/>
+    </resources>
 </document>
