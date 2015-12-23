@@ -21,6 +21,13 @@
 		2A34F79A1C296C87000AB63F /* SessionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A34F7991C296C87000AB63F /* SessionViewCell.swift */; };
 		2A34F79C1C2A4A0B000AB63F /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A34F79B1C2A4A0B000AB63F /* ContactsViewController.swift */; };
 		2A34F79E1C2A4AA8000AB63F /* ContactCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A34F79D1C2A4AA8000AB63F /* ContactCell.swift */; };
+		2A34F7AC1C2AA6B7000AB63F /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A34F7A21C2AA6B7000AB63F /* FMDatabase.m */; };
+		2A34F7AD1C2AA6B7000AB63F /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A34F7A41C2AA6B7000AB63F /* FMDatabaseAdditions.m */; };
+		2A34F7AE1C2AA6B7000AB63F /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A34F7A61C2AA6B7000AB63F /* FMDatabasePool.m */; };
+		2A34F7AF1C2AA6B7000AB63F /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A34F7A81C2AA6B7000AB63F /* FMDatabaseQueue.m */; };
+		2A34F7B01C2AA6B7000AB63F /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A34F7AB1C2AA6B7000AB63F /* FMResultSet.m */; };
+		2A34F7B21C2AA8E8000AB63F /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A34F7B11C2AA8E8000AB63F /* Contact.swift */; };
+		2A34F7B41C2AB071000AB63F /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A34F7B31C2AB071000AB63F /* libsqlite3.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +47,20 @@
 		2A34F7991C296C87000AB63F /* SessionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionViewCell.swift; sourceTree = "<group>"; };
 		2A34F79B1C2A4A0B000AB63F /* ContactsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
 		2A34F79D1C2A4AA8000AB63F /* ContactCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactCell.swift; sourceTree = "<group>"; };
+		2A34F7A01C2AA6B7000AB63F /* WjMsg-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WjMsg-Bridging-Header.h"; sourceTree = "<group>"; };
+		2A34F7A11C2AA6B7000AB63F /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
+		2A34F7A21C2AA6B7000AB63F /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
+		2A34F7A31C2AA6B7000AB63F /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		2A34F7A41C2AA6B7000AB63F /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
+		2A34F7A51C2AA6B7000AB63F /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
+		2A34F7A61C2AA6B7000AB63F /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
+		2A34F7A71C2AA6B7000AB63F /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseQueue.h; sourceTree = "<group>"; };
+		2A34F7A81C2AA6B7000AB63F /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
+		2A34F7A91C2AA6B7000AB63F /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
+		2A34F7AA1C2AA6B7000AB63F /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
+		2A34F7AB1C2AA6B7000AB63F /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
+		2A34F7B11C2AA8E8000AB63F /* Contact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
+		2A34F7B31C2AB071000AB63F /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A34F7B41C2AB071000AB63F /* libsqlite3.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,6 +78,7 @@
 		2A1BDBD51C28D63B00DB80A5 = {
 			isa = PBXGroup;
 			children = (
+				2A34F7B31C2AB071000AB63F /* libsqlite3.tbd */,
 				2A1BDBE01C28D63B00DB80A5 /* WjMsg */,
 				2A1BDBDF1C28D63B00DB80A5 /* Products */,
 			);
@@ -72,6 +95,7 @@
 		2A1BDBE01C28D63B00DB80A5 /* WjMsg */ = {
 			isa = PBXGroup;
 			children = (
+				2A34F79F1C2AA68F000AB63F /* SQLite_FMDB */,
 				2A1BDBF91C28DD7F00DB80A5 /* reource */,
 				2A1BDBF81C28DD7800DB80A5 /* util */,
 				2A1BDBF51C28DC5400DB80A5 /* model */,
@@ -112,6 +136,7 @@
 		2A1BDBF51C28DC5400DB80A5 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				2A34F7B11C2AA8E8000AB63F /* Contact.swift */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -129,6 +154,25 @@
 			children = (
 			);
 			name = reource;
+			sourceTree = "<group>";
+		};
+		2A34F79F1C2AA68F000AB63F /* SQLite_FMDB */ = {
+			isa = PBXGroup;
+			children = (
+				2A34F7A11C2AA6B7000AB63F /* FMDatabase.h */,
+				2A34F7A21C2AA6B7000AB63F /* FMDatabase.m */,
+				2A34F7A31C2AA6B7000AB63F /* FMDatabaseAdditions.h */,
+				2A34F7A41C2AA6B7000AB63F /* FMDatabaseAdditions.m */,
+				2A34F7A51C2AA6B7000AB63F /* FMDatabasePool.h */,
+				2A34F7A61C2AA6B7000AB63F /* FMDatabasePool.m */,
+				2A34F7A71C2AA6B7000AB63F /* FMDatabaseQueue.h */,
+				2A34F7A81C2AA6B7000AB63F /* FMDatabaseQueue.m */,
+				2A34F7A91C2AA6B7000AB63F /* FMDB.h */,
+				2A34F7AA1C2AA6B7000AB63F /* FMResultSet.h */,
+				2A34F7AB1C2AA6B7000AB63F /* FMResultSet.m */,
+				2A34F7A01C2AA6B7000AB63F /* WjMsg-Bridging-Header.h */,
+			);
+			name = SQLite_FMDB;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -205,13 +249,19 @@
 			files = (
 				2A34F7961C291894000AB63F /* PostCell.swift in Sources */,
 				2A34F7981C296984000AB63F /* SessionViewController.swift in Sources */,
+				2A34F7B21C2AA8E8000AB63F /* Contact.swift in Sources */,
 				2A1BDBF71C28DC7700DB80A5 /* MaterialView.swift in Sources */,
+				2A34F7AC1C2AA6B7000AB63F /* FMDatabase.m in Sources */,
 				2A34F79A1C296C87000AB63F /* SessionViewCell.swift in Sources */,
+				2A34F7AF1C2AA6B7000AB63F /* FMDatabaseQueue.m in Sources */,
+				2A34F7B01C2AA6B7000AB63F /* FMResultSet.m in Sources */,
 				2A1BDBE41C28D63B00DB80A5 /* ViewController.swift in Sources */,
 				2A1BDBE21C28D63B00DB80A5 /* AppDelegate.swift in Sources */,
 				2A34F79E1C2A4AA8000AB63F /* ContactCell.swift in Sources */,
+				2A34F7AD1C2AA6B7000AB63F /* FMDatabaseAdditions.m in Sources */,
 				2A1BDBFB1C28DDA400DB80A5 /* constants.swift in Sources */,
 				2A34F7941C2917C6000AB63F /* FeedViewController.swift in Sources */,
+				2A34F7AE1C2AA6B7000AB63F /* FMDatabasePool.m in Sources */,
 				2A1BDBFD1C28E2C100DB80A5 /* MaterialButton.swift in Sources */,
 				2A34F79C1C2A4A0B000AB63F /* ContactsViewController.swift in Sources */,
 			);
@@ -326,10 +376,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = WjMsg/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jch.app.WjMsg;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "WjMsg/WjMsg-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -337,10 +390,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = WjMsg/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jch.app.WjMsg;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "WjMsg/WjMsg-Bridging-Header.h";
 			};
 			name = Release;
 		};

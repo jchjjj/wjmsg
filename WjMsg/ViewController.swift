@@ -43,23 +43,28 @@ class ViewController: UIViewController , UITextFieldDelegate{
 //    }
     @IBOutlet weak var inputview : UIView!
     
+    //vars
     var inputRect : CGRect?
     var activeTextField : UITextField?
+    var contacts = [Contact]()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         user.delegate = self
         passwd.delegate = self
         
+
         //keboard notification 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboarddidShown:", name: UIKeyboardDidShowNotification, object: nil  )
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardwillHide:", name: UIKeyboardWillHideNotification, object: nil)
     }
-
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         inputRect = inputview.frame //get initial frame
     }
+    
+    
     
     func keyboarddidShown(notification: NSNotification ) {
         print("keyboard show")

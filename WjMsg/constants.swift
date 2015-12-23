@@ -19,3 +19,5 @@ let SEGUE_SESSION = "ShowSession"
 let UID = "uid"
 let PASSWD = "password"
 
+//Database
+let DATABASENAME = "database_wjmsg.db"
