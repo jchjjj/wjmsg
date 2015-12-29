@@ -7,13 +7,18 @@
 //
 
 import UIKit
+//import XMPPFramework
 
-class ContactsViewController: UIViewController , UITableViewDelegate, UITableViewDataSource{
+class ContactsViewController: UIViewController , UITableViewDelegate, UITableViewDataSource,
+ChatDelegate{
 
     @IBOutlet weak var tableView : UITableView!
     
     
     var contacts = [Contact]()
+//    var onlineUsers = [Contact]()
+    var onlineUsers = [String]()
+    var chatUserName:String = ""
     
     
     override func viewDidLoad() {
@@ -26,7 +31,39 @@ class ContactsViewController: UIViewController , UITableViewDelegate, UITableVie
             print("in background!!!!!!")
             self.initDatabase()
             self.loadContacts()
-            self.tableView.reloadData()
+            dispatch_async(dispatch_get_main_queue(), {
+                self.tableView.reloadData()
+            })
+        }
+        
+        let del:AppDelegate = self.appDelegate();
+        del.chatDelegate = self;
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        let defaults:NSUserDefaults = NSUserDefaults.standardUserDefaults()
+        let ologin : String? = defaults.stringForKey(USERID)
+        
+        
+        
+        if  ologin != ""  {
+            var login:NSString = ologin!
+            if (self.appDelegate().connect()) {
+                print("show buddy list")
+                
+            }
+            
+        }else {
+            let alert = UIAlertController()
+            alert.title = "提示"
+            alert.message = "您还没有设置账号"
+//            alert.show
+            //alert.addButtonWithTitle("设置")
+            //alert.show()
+            //设定用户
+//            self.Account(self)
+            
         }
     }
     //database related funcs
@@ -92,17 +129,85 @@ class ContactsViewController: UIViewController , UITableViewDelegate, UITableVie
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return contacts.count
+//        return contacts.count
+        return onlineUsers.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell =  tableView.dequeueReusableCellWithIdentifier("ContactCell") as! ContactCell
-        let contact = contacts[indexPath.row]
-        cell.nameLbl.text = contact.name!
-        cell.photoImagView.image = UIImage(named: contact.photoPath!)
+        //let contact = contacts[indexPath.row]
+        //cell.nameLbl.text = contact.name!
+        cell.nameLbl.text = onlineUsers[indexPath.row]
+        //cell.photoImagView.image = UIImage(named: contact.photoPath!)
         
         return cell
     }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        //start a Chat
+        chatUserName = onlineUsers[indexPath.row];
+        print("Now chatting with \(chatUserName)")
+        
+        self.performSegueWithIdentifier(SEGUE_SESSION_DETAIL , sender:self)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == SEGUE_SESSION_DETAIL {
+            let chatvc = segue.destinationViewController as! ChatViewController
+            chatvc.chatWithUser = chatUserName
+        }
+    }
+    //XMPP related funcs
+    func appDelegate() -> AppDelegate{
+        return UIApplication.sharedApplication().delegate as! AppDelegate
+    }
+    
+    func xmppStream() -> XMPPStream {
+        return self.appDelegate().xmppStream!
+    }
+    
+    func newBuddyOnline( buddyName: String){
+        var i = 0
+        for user in onlineUsers{
+            if (user == buddyName) {
+                break
+            }
+            i++
+        }
+        if i == onlineUsers.count{
+            onlineUsers.append(buddyName)
+            print("add frends \(buddyName)")
+            self.tableView.reloadData();
+        }
+
+    }
+    
+    func buddyWentOffline(buddyName : String){
+        var i = 0
+        for user in onlineUsers{
+            if (user == buddyName) {
+                onlineUsers.removeAtIndex(i)
+                self.tableView.reloadData();
+                break
+            }
+            i++
+        }
+
+    }
+    
+    func didDisconnect(){
+        
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
     /*
     // MARK: - Navigation
 

@@ -12,35 +12,7 @@ class ViewController: UIViewController , UITextFieldDelegate{
 
     @IBOutlet weak var user : UITextField!
     @IBOutlet weak var passwd: UITextField!
-//    - (void)registerForKeyboardNotifications {
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:) name:UIKeyboardDidShowNotification object:nil];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillBeHidden:) name:UIKeyboardWillHideNotification object:nil];
-//    }
-//    
-//    - (void)keyboardWasShown:(NSNotification *)aNotification {
-//    // Called when the keyboard is shown
-//    NSDictionary *info = [Notification userInfo];
-//    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-//    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0);
-//    _driverSignupScrollView.contentInset = contentInsets;
-//    _driverSignupScrollView.scrollIndicatorInsets = contentInsets;
-//    
-//    // If active field is hidden by keyboard, scroll it so it's visible
-//    CGRect aRect = self.view.frame;
-//    aRect.size.height -= kbSize.height;
-//    
-//    CGPoint activeFieldPoint = CGPointMake(_activeField.frame.origin.x, _activeField.frame.origin.y + _activeField.frame.size.height);
-//    if (!CGRectContainsPoint(aRect, activeFieldPoint)) {
-//    [_scrollView scrollRectToVisible:_activeField.frame animated:YES];
-//    }
-//    }
-//    
-//    - (void)keyboardWillBeHidden:(NSNotification *)aNotification {
-//    // Called when the keyboard is hidden
-//    UIEdgeInsets contentInsets = UIEdgeInsetsZero;
-//    _scrollView.contentInset = contentInsets;
-//    _scrollView.scrollIndicatorInsets = contentInsets;
-//    }
+
     @IBOutlet weak var inputview : UIView!
     
     //vars
@@ -68,9 +40,9 @@ class ViewController: UIViewController , UITextFieldDelegate{
     
     func keyboarddidShown(notification: NSNotification ) {
         print("keyboard show")
-//        let kbinfo = notification.userInfo
-//        let kbSize = kbinfo![UIKeyboardFrameBeginUserInfoKey]?.CGRectValue.size
-//        let kbheight = kbSize?.height
+        let kbinfo = notification.userInfo
+        let kbSize = kbinfo![UIKeyboardFrameBeginUserInfoKey]?.CGRectValue.size
+        let kbheight = kbSize?.height
 //        inputRect?.origin.y -= kbheight! / 2.0
 //        
 ////        inputview.frame = inputRect!
@@ -82,14 +54,15 @@ class ViewController: UIViewController , UITextFieldDelegate{
 //        }
         
         //[[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+        inputview.frame.origin.y -= kbheight!/2.0
         
     }
     
     func keyboardwillHide(notification: NSNotification) {
         print("keyboard hide")
-//        let kbinfo = notification.userInfo
-//        let kbSize = kbinfo![UIKeyboardFrameBeginUserInfoKey]?.CGRectValue.size
-//        let kbheight = kbSize?.height
+        let kbinfo = notification.userInfo
+        let kbSize = kbinfo![UIKeyboardFrameBeginUserInfoKey]?.CGRectValue.size
+        let kbheight = kbSize?.height
 //        inputRect?.origin.y += kbheight! / 2.0
 //        
 ////        inputview.frame = inputRect!
@@ -98,6 +71,7 @@ class ViewController: UIViewController , UITextFieldDelegate{
 //            newRect.origin.y = kbheight! + 20.0
 //            self.activeTextField?.frame = newRect
 //        }
+        inputview.frame.origin.y += kbheight!/2.0
         
     }
     override func didReceiveMemoryWarning() {
@@ -107,9 +81,9 @@ class ViewController: UIViewController , UITextFieldDelegate{
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        if NSUserDefaults.standardUserDefaults().valueForKey(UID) != nil {
-            self.performSegueWithIdentifier(SEGUE_LOGIN, sender: nil)
-        }
+//        if NSUserDefaults.standardUserDefaults().valueForKey(UID) != nil {
+//            self.performSegueWithIdentifier(SEGUE_LOGIN, sender: nil)
+//        }
     }
     
     func alert(title : String , msg: String ){
@@ -125,15 +99,27 @@ class ViewController: UIViewController , UITextFieldDelegate{
         if let user = self.user.text where user != "", let passwd = self.passwd.text  where passwd != ""   {
             print(user)
             print(passwd)
-            NSUserDefaults.standardUserDefaults().setValue(user, forKey: UID )
-            NSUserDefaults.standardUserDefaults().setValue(passwd, forKey: PASSWD)
+            let defaults = NSUserDefaults.standardUserDefaults()
+            defaults.setValue(user, forKey: UID )
+            defaults.setValue(passwd, forKey: PASSWD)
+            // tmp use
+            defaults.setValue(user, forKey: USERID)
+            defaults.setValue(passwd, forKey: PASS)
+            defaults.setValue("localhost", forKey: SERVER)
+            
             print("user and password stored in NSUserDefaults.standardUserDefaults()")
+            print("start login........")
+            login()
+            
             performSegueWithIdentifier(SEGUE_LOGIN, sender:nil)
         } else {
             alert("请输入用户名和密码", msg: "当前用户名或密码为空！请重新输入。")
         }
     }
-    
+    func login(){
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        appDelegate.connect()
+    }
 //    @IBAction func chatButtonClicked(sender: UIButton) {
 //        performSegueWithIdentifier(SEGUE_SESSION, sender: nil)
 //    }

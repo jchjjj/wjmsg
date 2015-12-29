@@ -38,4 +38,10 @@ class ContactCell: UITableViewCell {
             sender.setImage(image!, forState: UIControlState.Normal)
         }
     }
+    
+    override func drawRect(rect: CGRect) {
+       
+        photoImagView.layer.cornerRadius = photoImagView.frame.size.width/2.0
+        photoImagView.clipsToBounds  = true
+    }
 }

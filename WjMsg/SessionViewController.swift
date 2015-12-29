@@ -36,4 +36,23 @@ class SessionViewController: UIViewController, UITableViewDelegate, UITableViewD
         return 5
     }
     
+    // a session item is selected , then jump to its dialog view
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        performSegueWithIdentifier(SEGUE_SESSION_DETAIL, sender: indexPath)
+
+    }
+    
+
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if segue.identifier == SEGUE_SESSION_DETAIL {
+            if let index = sender as? NSIndexPath {
+//                print(index.row)
+                let vc = segue.destinationViewController as! ChatViewController
+                vc.parterner = "第\(index.row)个会话"
+            }
+            
+        }
+    }
 }
