@@ -20,17 +20,37 @@ class ViewController: UIViewController , UITextFieldDelegate{
     var activeTextField : UITextField?
     var contacts = [Contact]()
     
+    var timer: NSTimer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         user.delegate = self
         passwd.delegate = self
         
-
+        //set timer to check if the user login successfully repeatedly
+        timer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "checkUserLogin", userInfo: nil, repeats: true)
+        
+        
         //keboard notification 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboarddidShown:", name: UIKeyboardDidShowNotification, object: nil  )
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardwillHide:", name: UIKeyboardWillHideNotification, object: nil)
     }
+    
+    func checkUserLogin() {
+        
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if let passeduser = defaults.valueForKey("passedUser")  {
+            if let user = defaults.valueForKey(USERID) {
+                let u1 = passeduser as! String
+                let u2 = user as! String
+                if u1 == u2 {
+                    timer?.invalidate()
+                    self.performSegueWithIdentifier(SEGUE_LOGIN, sender: nil)
+                }
+            }
+        }
+    }
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         inputRect = inputview.frame //get initial frame
@@ -81,9 +101,13 @@ class ViewController: UIViewController , UITextFieldDelegate{
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-//        if NSUserDefaults.standardUserDefaults().valueForKey(UID) != nil {
-//            self.performSegueWithIdentifier(SEGUE_LOGIN, sender: nil)
-//        }
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if defaults.valueForKey(UID) != nil  && defaults.valueForKey(PASS) != nil
+            && defaults.valueForKey(SERVER) != nil {
+//
+            self.login()
+            
+        }
     }
     
     func alert(title : String , msg: String ){

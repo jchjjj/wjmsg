@@ -9,8 +9,7 @@
 import UIKit
 //import XMPPFramework
 
-class ContactsViewController: UIViewController , UITableViewDelegate, UITableViewDataSource,
-ChatDelegate{
+class ContactsViewController: UIViewController , UITableViewDelegate, UITableViewDataSource,ChatDelegate{
 
     @IBOutlet weak var tableView : UITableView!
     
@@ -20,15 +19,19 @@ ChatDelegate{
     var onlineUsers = [String]()
     var chatUserName:String = ""
     
+    var isLogin : Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
+        
+        
+        
         //load database async
         let mainDispatchQueue = dispatch_queue_create("background", nil)
         dispatch_async(mainDispatchQueue){
-            print("in background!!!!!!")
+            print("init contact DB in background!!!!!!")
             self.initDatabase()
             self.loadContacts()
             dispatch_async(dispatch_get_main_queue(), {
@@ -42,28 +45,25 @@ ChatDelegate{
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        let defaults:NSUserDefaults = NSUserDefaults.standardUserDefaults()
-        let ologin : String? = defaults.stringForKey(USERID)
+//        let defaults:NSUserDefaults = NSUserDefaults.standardUserDefaults()
+//        let ologin : String? = defaults.stringForKey(USERID)
         
-        
-        
-        if  ologin != ""  {
-            var login:NSString = ologin!
+        //login state
+        self.isLogin = self.appDelegate().isLogin
+        if  !isLogin  { // user is not login
+//            var login:NSString = ologin!
             if (self.appDelegate().connect()) {
-                print("show buddy list")
-                
+                print("login in ContactsViewController ...")
+                isLogin = true
+                self.appDelegate().goOnline()
             }
-            
         }else {
-            let alert = UIAlertController()
-            alert.title = "提示"
-            alert.message = "您还没有设置账号"
-//            alert.show
-            //alert.addButtonWithTitle("设置")
-            //alert.show()
-            //设定用户
-//            self.Account(self)
-            
+            print("already login")
+            self.appDelegate().goOnline()
+//            let alert = UIAlertController()
+//            alert.title = "提示"
+//            alert.message = "您还没有设置账号"
+//            self.presentViewController(alert, animated: true, completion: nil)
         }
     }
     //database related funcs
@@ -119,11 +119,6 @@ ChatDelegate{
         
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -148,11 +143,11 @@ ChatDelegate{
         chatUserName = onlineUsers[indexPath.row];
         print("Now chatting with \(chatUserName)")
         
-        self.performSegueWithIdentifier(SEGUE_SESSION_DETAIL , sender:self)
+        self.performSegueWithIdentifier(SEGUE_TO_CHAT , sender:self)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == SEGUE_SESSION_DETAIL {
+        if segue.identifier == SEGUE_TO_CHAT {
             let chatvc = segue.destinationViewController as! ChatViewController
             chatvc.chatWithUser = chatUserName
         }
@@ -176,7 +171,7 @@ ChatDelegate{
         }
         if i == onlineUsers.count{
             onlineUsers.append(buddyName)
-            print("add frends \(buddyName)")
+            print("add friends \(buddyName)")
             self.tableView.reloadData();
         }
 

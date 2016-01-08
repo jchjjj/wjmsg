@@ -16,11 +16,17 @@ let SHADOW_COLOR  =  CGFloat( 198.0/255.0 )
 let SEGUE_LOGIN = "Login"
 let SEGUE_SESSION = "ShowSession"
 let SEGUE_SESSION_DETAIL = "ShowSessionDetail"
+let SEGUE_TO_CHAT = "gotoChat"
+
+
 //user information
 let UID = "uid"
 let PASSWD  = "password"
 let USERID  = "userid"
 let PASS    = "password"
-let SERVER  = "xmpp_server"
+let SERVER  = "localhost"
+
+
+
 //Database
 let DATABASENAME = "database_wjmsg.db"

@@ -21,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate
     var xmppStream:XMPPStream?
     var password:String = ""
     var isOpen:Bool = false
+    var isLogin = false
     var chatDelegate:ChatDelegate?
     var messageDelegate:MessageDelegate?
 
@@ -56,7 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate
         
         //初始化XMPPStream
         xmppStream = XMPPStream()
-        xmppStream!.addDelegate(self,delegateQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0));
+        xmppStream!.addDelegate(self,delegateQueue:dispatch_get_main_queue());
         
     }
     
@@ -105,23 +106,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate
         //连接服务器
         do {
             try xmppStream!.connectWithTimeout(XMPPStreamTimeoutNone)
-            print("Connection success")
+            
             return true
         } catch {
             print("Something went wrong!")
             return false
         }
-
-    
-    
-        // old
-//        var error: NSError?
-//        if (!xmppStream!.connectWithTimeout(XMPPStreamTimeoutNone, error:  &error  )) {
-//            print("cannot connect \(server)")
-//            return false;
-//        }
-//        print("connect success!!!")
-//        return true;
         
     }
     
@@ -136,27 +126,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate
     func xmppStreamDidConnect(sender:XMPPStream ){
         print("######xmppStreamDidConnect \(xmppStream!.isConnected())")
         isOpen = true;
-//        var error:NSError?
-        //NSError *error
+
         //验证密码
-        print(password)
+        print("password is \(password)")
         self.goOnline()
         do{
             try xmppStream!.authenticateWithPassword(password)
-            print("authenticate success!")
+            //
         }catch {
             print("Something went wrong in authenticate!")
-            
         }
-//        xmppStream!.authenticateWithPassword(password ,error: &error)
-//        if error != nil {
-//            print(error!)
-//        }
     }
     
     //验证通过
     func xmppStreamDidAuthenticate(sender:XMPPStream ){
         print("xmppStreamDidAuthenticate")
+        
+        //store the authenticate info in userdefaults
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setValue(defaults.valueForKey(USERID), forKey: "passedUser")
+        
+        self.isLogin = true
         self.goOnline()
     }
     func xmppStream(sender:XMPPStream , didNotAuthenticate error:DDXMLElement ){
@@ -168,14 +158,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate
         
         if message != nil {
             print(message)
-            let cont:String = message!.elementForName("body").stringValue();
-            let from:String = message!.attributeForName("from").stringValue();
+            let cont:String = message!.elementForName("body").stringValue()
+            let from:String = message!.attributeForName("from").stringValue()
             
             let msg:Message = Message(content:cont,sender:from,ctime:getCurrentTime())
             
             
             //消息委托(这个后面讲)
-            messageDelegate?.newMessageReceived(msg);
+            messageDelegate?.newMessageReceived(msg)
         }
         
     }
@@ -188,14 +178,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate
         //取得好友状态
         let presenceType:NSString = presence.type() //online/offline
         //当前用户
-        let userId:NSString  = sender.myJID.user;
+        let userId:NSString  = sender.myJID.user
         //在线用户
-        let presenceFromUser:NSString  = presence.from().user;
+        let presenceFromUser:NSString  = presence.from().user
         
-        if (!presenceFromUser.isEqualToString(userId as String)) {
+        if (!presenceFromUser.isEqualToString(userId as String)) { // not self
             
             //在线状态
-            let srv:String = "macshare.local"
+            let srv:String = SERVER
+            print(presenceType)
             if (presenceType.isEqualToString("available")) {
                 
                 //用户列表委托
@@ -212,24 +203,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate
     func sendElement(mes:DDXMLElement){
         xmppStream!.sendElement(mes)
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
 
 }
